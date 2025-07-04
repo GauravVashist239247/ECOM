@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const router = require("./routes");
+const { authrouter, todorouter } = require("./routes");
 
 const corsOption = {
   credentials: true,
@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
 
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
-app.use("/login", router);
+app.use("/login", authrouter);
+app.use("/todo", todorouter);
 
 module.exports = app;

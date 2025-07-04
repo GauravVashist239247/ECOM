@@ -1,3 +1,5 @@
-const router = require("./auth.routes");
+const authrouter = require("./auth.routes");
 
-module.exports = router;
+const todorouter = require("./todo.routes");
+
+module.exports = { authrouter, todorouter };

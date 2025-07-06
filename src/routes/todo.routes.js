@@ -6,6 +6,7 @@ const {
   addnotes,
   getallnotes,
   deleteNotes,
+  todoComplete,
 } = require("../controller");
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.delete("/deletetodo/:id", deleteTodo);
 router.post("/note", addnotes);
 router.get("/notes", getallnotes);
 router.delete("/notes/:id", deleteNotes);
+router.put("/updatetodo/:id", todoComplete);
 
 module.exports = router;

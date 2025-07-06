@@ -1,5 +1,5 @@
 const { getallnotes, addnotes, deleteNotes } = require("./notes");
-const { todos, addTodo, deleteTodo } = require("./todo");
+const { todos, addTodo, deleteTodo, todoComplete } = require("./todo");
 const { userRegister, removeUser, alluser, allUser } = require("./user");
 
 module.exports = {
@@ -12,4 +12,5 @@ module.exports = {
   getallnotes,
   addnotes,
   deleteNotes,
+  todoComplete,
 };

@@ -1,4 +1,3 @@
-const status = require("statuses");
 const { todoModels } = require("../../models");
 
 const deleteTodo = async (req, res) => {

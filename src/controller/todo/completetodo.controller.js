@@ -1,9 +1,19 @@
+const mongoose = require("mongoose");
 const { todoModels } = require("../../models");
 
 const todoComplete = async (req, res) => {
+  const { id } = req.params;
+
+  // Validate ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid Todo ID" });
+  }
+
   try {
-    const { id } = req.params;
-    const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, {
+    console.log("Updating Todo:", id);
+    console.log("Payload:", req.body);
+
+    const updatedTodo = await todoModels.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -12,7 +22,11 @@ const todoComplete = async (req, res) => {
       return res.status(404).json({ message: "Todo not found" });
     }
 
-    res.status(200).json(updatedTodo);
+    res.json({
+      status: 200,
+      message: "Todo updated successfully",
+      data: updatedTodo,
+    });
   } catch (err) {
     console.error("Update error:", err);
     res.status(500).json({ message: "Internal server error" });

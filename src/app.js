@@ -12,7 +12,7 @@ const app = express();
 
 // ✅ CORS config for sending cookies
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "*",
   credentials: true,
 };
 

@@ -6,14 +6,17 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const { authrouter, todorouter } = require("./routes");
-const { verifyAuthentication } = require("./middleware");
+const verifyAuthentication = require("./middleware/authTodo.middleware");
 
 const app = express();
 
-// ✅ CORS config for sending cookies
+// ✅ CORS config that allows all origins (for development only)
 const corsOptions = {
-  origin: "*",
-  credentials: true,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // Allow non-browser clients like curl
+    return callback(null, true); // Allow all origins
+  },
+  credentials: true, // ✅ Allow cookies
 };
 
 app.use(cors(corsOptions));
@@ -21,15 +24,15 @@ app.use(cookieParser());
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
-// ✅ Run token verification on all requests
+// ✅ Attach user to every request based on token
 app.use(verifyAuthentication);
 
-// ✅ Routes
+// ✅ Test server route
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is reachable" });
 });
 
-// ✅ User info route for frontend
+// ✅ Authenticated user route
 app.get("/me", (req, res) => {
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -37,7 +40,8 @@ app.get("/me", (req, res) => {
   res.status(200).json({ user: req.user });
 });
 
-app.use("/login", authrouter);
-app.use("/todo", todorouter);
+// ✅ Routes
+app.use("/login", authrouter); // login + register
+app.use("/todo", todorouter); // protected todo routes
 
 module.exports = app;

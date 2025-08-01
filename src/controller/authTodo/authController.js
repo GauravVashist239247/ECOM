@@ -5,13 +5,13 @@ const SECRET = process.env.JWT_SECRET;
 
 // Register controller
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, name, password } = req.body;
 
   try {
     const exists = await todoUser.findOne({ email });
     if (exists) return res.status(409).json({ message: "User already exists" });
 
-    const user = await todoUser.create({ email, password });
+    const user = await todoUser.create({ email, name, password });
     const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
 
     res.status(201).json({ token, email: user.email });
@@ -24,7 +24,7 @@ const register = async (req, res) => {
 
 // Login controller
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, name, password } = req.body;
 
   try {
     const user = await todoUser.findOne({ email });
@@ -33,7 +33,12 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email, password: user.password },
+      {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        password: user.password,
+      },
       SECRET,
       { expiresIn: "1h" }
     );

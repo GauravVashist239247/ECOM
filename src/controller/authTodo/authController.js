@@ -43,8 +43,8 @@ const login = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         httpOnly: true, // prevents JavaScript access
-        secure: false, // set to true if using HTTPS
-        sameSite: "Lax", // or 'Strict' or 'None' for cross-site
+        secure: true, // set to true if using HTTPS
+        sameSite: "none", // or 'Strict' or 'None' for cross-site
         maxAge: 24 * 60 * 60 * 1000, // 1 day
       })
       .json({ token, email: user.email });

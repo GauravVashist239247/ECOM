@@ -13,7 +13,7 @@ const verifyAuthentication = (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, SECRET);
     req.user = decodedToken; // attach user info to request
-    console.log(req.user);
+    console.log("req user=", req.user);
     next();
   } catch (error) {
     console.error("Invalid token:", error.message);
@@ -22,4 +22,4 @@ const verifyAuthentication = (req, res, next) => {
   }
 };
 
-module.exports = verifyAuthentication;
+module.exports = { verifyAuthentication };

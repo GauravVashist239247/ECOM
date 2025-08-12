@@ -5,8 +5,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const { authrouter, todorouter } = require("./routes");
-const verifyAuthentication = require("./middleware/authTodo.middleware");
+const { authrouter, todorouter, userrouter } = require("./routes");
+const { verifyAuthentication } = require("./middleware/authTodo.middleware");
 
 const app = express();
 
@@ -37,11 +37,13 @@ app.get("/me", (req, res) => {
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized" });
   }
+  console.log("req user of app / me", req.user);
   res.status(200).json({ user: req.user });
 });
 
 // ✅ Routes
-app.use("/login", authrouter); // login + register
 app.use("/todo", todorouter); // protected todo routes
+app.use("/login", authrouter); // login + register
+// app.use("/usser", userrouter);
 
 module.exports = app;

@@ -5,6 +5,8 @@ const addTodo = async (req, res) => {
   try {
     const task = req.body;
     const todoTask = new todoModels(task);
+    console.log("req body of add todo", req.body);
+    console.log("req user of add todo", req.user);
 
     await todoTask.save();
 

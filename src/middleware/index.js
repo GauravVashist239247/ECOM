@@ -1,3 +1,5 @@
-const verifyAuthentication = require("./authTodo.middleware");
+const { verifyAuthentication } = require("./authTodo.middleware");
 
-module.exports = { verifyAuthentication };
+module.exports = {
+  verifyAuthentication,
+};

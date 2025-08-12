@@ -42,6 +42,8 @@ const login = async (req, res) => {
       SECRET,
       { expiresIn: "1h" }
     );
+
+    console.log("req user of auth contoleer login", req.user);
     // res.setHeader("Set-cookie", "isLoggedIn=tru=/;");
     // .render("/")
     return res

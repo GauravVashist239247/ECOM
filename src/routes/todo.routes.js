@@ -11,13 +11,16 @@ const {
   todos,
   deleteTodo,
   todoComplete,
+  logout,
 } = require("../controller");
+const { verifyAuthentication } = require("../middleware/authTodo.middleware");
 // const { checkAuth } = require("../controller/authTodo/authController");
 
 const router = express.Router();
 
 router.post("/register", register);
-router.post("/login", login);
+router.post("/login", login, verifyAuthentication);
+router.post("/logout", logout);
 router.get("/login", allTodoUser);
 // router.get("/check", checkAuth);
 

@@ -1,4 +1,4 @@
-const { register, login, allTodoUser } = require("./authTodo");
+const { register, login, allTodoUser, logout } = require("./authTodo");
 const { getallnotes, addnotes, deleteNotes } = require("./notes");
 
 const { addTodo, todos, deleteTodo, todoComplete } = require("./todo");
@@ -18,4 +18,5 @@ module.exports = {
   register,
   login,
   allTodoUser,
+  logout,
 };

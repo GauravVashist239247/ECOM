@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 });
 
 // ✅ Authenticated user route
-app.get("/me", (req, res) => {
+app.get("/me", verifyAuthentication, (req, res) => {
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized" });
   }

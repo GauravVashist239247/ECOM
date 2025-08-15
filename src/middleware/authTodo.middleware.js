@@ -5,8 +5,11 @@ const SECRET = process.env.JWT_SECRET;
 const verifyAuthentication = (req, res, next) => {
   const token = req.cookies.token;
 
+  console.log("middleware token value", token);
+
   if (!token) {
     req.user = null;
+    console.log("ppp");
     return next(); // no token, just proceed
   }
 

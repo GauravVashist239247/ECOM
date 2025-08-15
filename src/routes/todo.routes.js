@@ -20,7 +20,7 @@ const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.post("/logout", logout, verifyAuthentication);
+router.post("/logout", verifyAuthentication, logout);
 router.get("/login", allTodoUser);
 // router.get("/check", checkAuth);
 

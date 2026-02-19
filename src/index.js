@@ -5,6 +5,8 @@ require("dotenv").config({
   path: "./env",
 });
 
+const port = process.env.PORT || 4000;
+
 connectDB()
   .then(() => {
     app.on("error", () => {
@@ -12,7 +14,7 @@ connectDB()
       throw error;
     });
 
-    app.listen(process.env.PORt || 9000, "0.0.0.0", () => {
+    app.listen(port, "0.0.0.0", () => {
       console.log("Server is running at port:9000");
     });
   })

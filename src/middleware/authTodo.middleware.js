@@ -9,7 +9,7 @@ const verifyAuthentication = (req, res, next) => {
 
   if (!token) {
     req.user = null;
-    console.log("ppp");
+    console.log("p");
     return next(); // no token, just proceed
   }
 

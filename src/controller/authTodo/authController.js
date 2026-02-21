@@ -12,7 +12,16 @@ const register = async (req, res) => {
     if (exists) return res.status(409).json({ message: "User already exists" });
 
     const user = await todoUser.create({ email, name, password });
-    const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        password: user.password,
+      },
+      SECRET,
+      { expiresIn: "1h" },
+    );
 
     res.status(201).json({ token, email: user.email });
   } catch (err) {
@@ -40,7 +49,7 @@ const login = async (req, res) => {
         password: user.password,
       },
       SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
 
     console.log("req user of auth contoleer login", req.user);
